@@ -1,4 +1,7 @@
 # SargaDEB_SFF_NeededExperiments
+
+Associated Zenodo release : https://doi.org/10.5281/zenodo.17633291
+
 Repository attached as suplementary material for the paper : 
 "Most needed experiments to understand holopelagic
 Sargassum spp. growth : How a multi-reserve DEB
