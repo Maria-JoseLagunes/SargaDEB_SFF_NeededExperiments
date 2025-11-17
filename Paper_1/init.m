@@ -1,11 +1,7 @@
 % ---------------------------------------------------------------------
 %% Initital conditions for iteration and time vector
 % Maria José Lagunes
-% First created : 2024/03/12
 %Define initial conditions for simulation and the time of simulation
-% Input
-% modelParameters --> calling set_pars function
-%
 % ---------------------------------------------------------------------
 function simulationConditions = init
 
@@ -40,19 +36,6 @@ end
 % vars_pull(par);
 pars_T = [par.T_A; par.T_L; par.T_H; par.T_AL; par.T_AH]; % K
 
-
-
-% %Modifying elemental composition of structure
-% par.n_PV = 0.0012;     free.n_PV = 0;    units.n_PV = '-';    label.n_PV = 'Chemical index of phosphorous in structure from Redfield ratio (106:263:110:16:1)';
-% 
-% 
-% % %Initial conditions of algae
-% par.m_EC_0 = 0.434941555120368;   free.m_EC_0 = 0; units.m_EC_0 = 'mol C / mol V'; label.m_EC_0 = 'initial carbon reserve density'; 
-% par.m_EN_0 = 0.00212465563703726; free.m_EN_0 = 0; units.m_EN_0 = 'mol N / mol V'; label.m_EN_0 = 'initial nitrogen reserve density'; 
-
-% par.m_EC_0 = 0.002 * 0.0001;   free.m_EC_0 = 0; units.m_EC_0 = 'mol C / mol V'; label.m_EC_0 = 'initial carbon reserve density'; 
-% par.m_EN_0 = 0.01 * 0.0001 ; free.m_EN_0 = 0; units.m_EN_0 = 'mol N / mol V'; label.m_EN_0 = 'initial nitrogen reserve density'; 
-% % 
 
 if contains(dataset,"SLL2024") || contains(dataset,"MG2023a") || contains(dataset,"MG2023b")
 [data, auxData, metaData, txtData, weights] = mydata_pets;
@@ -151,7 +134,7 @@ elseif contains(dataset, 'temperatureSimulations')
             
         % Define the temperature values in Celsius
         % T_values = [22 24 28 30]; % Just update this array!
-        T_values = [25]; % Just update this array!
+        T_values = 25; % Just update this array!
         
         % Convert all to Kelvin in one step
         temperature = C2K(T_values);

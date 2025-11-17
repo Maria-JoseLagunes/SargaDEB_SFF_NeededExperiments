@@ -20,7 +20,7 @@ M_V = mECENV(:,3);  % mol V
 
 obs.Wd_free = (w_V + (m_EC .*w_EC) + (m_EN .* w_EN)) .* M_V; %g dW, dry weight
 obs.Wd = obs.Wd_free / (1 - par.x_moist - par.x_ash); 
-obs.Ww = obs.Wd / dwratio; %g wW, wet weight
+obs.Ww = obs.Wd / phi_dw; %g wW, wet weight
 
 
 
@@ -71,8 +71,8 @@ obs.N_endRatio= n_NV + m_EN(end); % mol N mol V-1
 obs.CNendRatio = obs.C_endRatio ./ obs.N_endRatio; %mol C mol N -1
 % obs.NCendRatio = obs.N_endRatio ./ obs.C_endRatio;  % mol N mol C-1
 %% Oxygen production rate
-obs.J_O2 =  J_struct.j_I .* M_V   * y_LO2; % absolut O2 production rate, mol 02 h-1
-obs.j_O2 =  J_struct.j_I .* (M_V / obs.Wd_free) * y_LO2 ; % mol 02 gdW-1  h-1
+obs.J_O2 =  J_struct.j_I .* M_V   * y_OI; % absolut O2 production rate, mol 02 h-1
+obs.j_O2 =  J_struct.j_I .* (M_V / obs.Wd_free) * y_OI ; % mol 02 gdW-1  h-1
 
 obs.j_O2 = obs.j_O2 / 1e-6; % micro mol O2 gdW-1 h-1
 
@@ -148,60 +148,6 @@ obs.Wd_PEN = (obs.M_PEN * w_P); %gdW PV
 obs.percCEN_gdW = (obs.Wd_CEN  ./ obs.Wd_EN) * 100;
 obs.percNEN_gdW = (obs.Wd_NEN  ./ obs.Wd_EN) * 100;
 obs.percPEN_gdW = (obs.Wd_PEN  ./ obs.Wd_EN) * 100;
-
-%%
-g_N_dW_min = 0.04; 
-g_N_dW_max  = 0.2; 
-g_C_dW =  1; 
-
-mol_N_min_Lorena = g_N_dW_min / w_N; 
-mol_N_max_Lorena = g_N_dW_max  / w_N;
-
-mol_C_Lorena = g_C_dW / w_C; 
-
-mol_NC_min_Lorena = mol_N_min_Lorena / mol_C_Lorena;
-mol_NC_max_Lorena = mol_N_max_Lorena / mol_C_Lorena;
-
-
-% g_N_dW_min_range_min = 0.016; 
-% g_N_dW_min_range_max = 0.029; 
-g_N_dW_min_range_av = 0.027; 
-
-% g_N_dW_max_range_min = 0.033; 
-% g_N_dW_max_range_max = 0.058; 
-g_N_dW_max_range_av = 0.034; 
-
-
-
-g_P_dW_min_range_av = 0.003; 
-
-g_P_dW_max_range_av = 0.008; 
-
-g_C_dW =  1; 
-
-
-mol_N_min_Jouanno_average = g_N_dW_min_range_av  / w_N; 
-mol_N_max_Jouanno_average = g_N_dW_max_range_av  / w_N;
-
-mol_C_Jouanno_average= g_C_dW / w_C; 
-
-mol_NC_min_Jouanno_average = mol_N_min_Jouanno_average / mol_C_Jouanno_average;
-mol_NC_max_Jouanno_average = mol_N_max_Jouanno_average / mol_C_Jouanno_average;
-
-mol_CN_min_Jouanno_average = 1 / mol_NC_min_Jouanno_average; 
-mol_CN_max_Jouanno_average = 1 / mol_NC_max_Jouanno_average; 
-
-%
-mol_P_min_Jouanno_average = g_P_dW_min_range_av  / w_P; 
-mol_P_max_Jouanno_average = g_P_dW_max_range_av  / w_P;
-
-mol_C_Jouanno_average= g_C_dW / w_C; 
-
-mol_PC_min_Jouanno_average = mol_P_min_Jouanno_average / mol_C_Jouanno_average;
-mol_PC_max_Jouanno_average = mol_P_max_Jouanno_average / mol_C_Jouanno_average;
-
-mol_CP_min_Jouanno_average = 1 / mol_PC_min_Jouanno_average; 
-mol_CP_max_Jouanno_average = 1 / mol_PC_max_Jouanno_average; 
 
 
 

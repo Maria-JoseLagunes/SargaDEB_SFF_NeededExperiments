@@ -69,18 +69,12 @@ k_I_CT_HL = pars.k_I * TC_HL; % mol γ mol PSU–1 h–1
 
 
 %Transform parameters with z factor algal
-dwratio_SF = pars.dwratio * pars.zalgal ; % gWd/gWw, Dry to wet (gdw/gww) weight ratio
-smcoeff_SF = pars.smcoeff / pars.zalgal;  % g cm-2, Coefficient of linear regression from Chambon
+dwratio_SF = pars.phi_dw * pars.zalgal ; % gWd/gWw, Dry to wet (gdw/gww) weight ratio
+smcoeff_SF = pars.psi_s/ pars.zalgal;  % g cm-2, Coefficient of linear regression from Chambon
 
 % zero-variate data
 % HT2023
 TC_HT2023 = tempcorr(temp.HT2023_CNratio, pars.T_ref, pars_T);
-% 
-% rmax = 0.1; 
-% TC_pars = [pars.j_ECAm, pars.j_ECM, pars.k_EC, pars.j_ENAm, pars.j_ENM, pars.k_EN];
-% pars_m0 = [TC_pars, pars.kap_EC, pars.y_ECV ]; 
-% [m_EC_0, m_EN0] = get_mECEN0_CT(rmax, pars_m0), 
-
 
 Wd_0_ash= Ww0.HT2023_CNratio * dwratio_SF;  %g dW, dry weight
 Wd_0 = Wd_0_ash *  (1 - pars.x_moist - pars.x_ash) ;
@@ -454,28 +448,12 @@ M_V= Wd / (pars.w_V +   (pars.m_EN_0 * pars.w_EN) +   (pars.m_EC_0* pars.w_EC));
 J_I_HL = (pars.rho_PSU * I_J_O2_VE2023_HL(:,1) * pars.eps_I) ./ ...                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
     (1 +  ((I_J_O2_VE2023_HL(:,1) * pars.eps_I) / k_I_CT_HL)) ; %% mol gamma mol V-1 h-1
 
-J_O2_HL =  J_I_HL .* (M_V / Wd)  * pars.y_LO2 * smcoeff_SF * dwratio_SF; % mol 02 cm-2  h-1
+J_O2_HL =  J_I_HL .* (M_V / Wd)  * pars.y_OI * smcoeff_SF * dwratio_SF; % mol 02 cm-2  h-1
 % J_O2_HL =  J_I_HL .* (M_V / Wd)  * pars.y_LO2 ; % mol 02 gdW-1  h-1
 
 J_O2_HL_micromol= J_O2_HL / 1e-6; % micro mol O2 cm-2 h-1
 prdData.I_J_O2_VE2023_HL= J_O2_HL_micromol; 
 
-
-% rho_PSU_LL = pars.rho_PSU * 0.5; 
-% I_J_O2_VE2023_LL(:,1) =  I_J_O2_VE2023_LL(:,1) * 1e-6 * 3600; % convert light intensity from micro mol to mol and from seconds to hours
-% 
-% J_I_LL = (rho_PSU_LL* I_J_O2_VE2023_LL(:,1) * pars.eps_I) ./ ...                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-%     (1 +  ((I_J_O2_VE2023_LL(:,1) * pars.eps_I) / k_I_CT_LL)) ; %% mol gamma mol V-1 h-1
-% 
-% % J_I_LL = (pars.rho_PSU * I_J_O2_VE2023_LL(:,1) * pars.eps_I) ./ ...                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-%     % (1 +  ((I_J_O2_VE2023_LL(:,1) * pars.eps_I) / k_I_CT_LL)) ; %% mol gamma mol V-1 h-1
-% 
-% J_O2_LL =  J_I_LL .* (M_V / Wd)  * pars.y_LO2 * smcoeff_SF * dwratio_SF; % mol 02 cm-2  h-1
-% J_O2_LL =  J_I_LL .* (M_V / Wd)  * pars.y_LO2; % mol 02 cm-2  h-1
-% 
-% J_O2_LL_micromol= J_O2_LL / 1e-6; %micro mol O2 cm-2 h-1
-% 
-% prdData.I_J_O2_VE2023_LL = J_O2_LL_micromol; 
 
 %% Created datasets
  options = odeset('RelTol',1e-10,'AbsTol',1e-12);

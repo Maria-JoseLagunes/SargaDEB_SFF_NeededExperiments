@@ -30,7 +30,7 @@ M_V = mECENV(3); % C-mol, structural intiial mass
 
 %% Modifying parameter values
 
-j_CO2m_CT = pars.j_CO2m * ct; % mol CO2 mol V-1 h-1, max volume specific CO2 uptake rate
+j_Cm_CT = pars.j_Cm * ct; % mol CO2 mol V-1 h-1, max volume specific CO2 uptake rate
 k_I_CT = pars.k_I * ct; % mol gamma mol PSU-1 h-1, dissociationrate of photosynthetic products
 % k_I_CT = k_I * 1; % mol gamma mol PSU-1 h-1, dissociationrate of photosynthetic products
 
@@ -49,7 +49,7 @@ j_ENM_CT = pars.j_ENM * ct; %mol N mol V-1 h-1, volume specific maitenance rate 
 
 % Carbon into reserve
 % Specific CO2 flux
-j_CO2 = j_CO2m_CT * (forcingVariables.CO2 / (forcingVariables.CO2 + pars.K_C)); % mol CO2 mol V-1 h-1
+j_CO2 = j_Cm_CT * (forcingVariables.CO2 / (forcingVariables.CO2 + pars.K_C)); % mol CO2 mol V-1 h-1
 
 %Specific relaxation rate
 j_I = (pars.rho_PSU * I  * pars.eps_I) / ...
@@ -57,8 +57,8 @@ j_I = (pars.rho_PSU * I  * pars.eps_I) / ...
 
 
 %Carbon assimilation rate
-j_EC_A = ( (1 / j_ECAm_CT) + (1 / (j_CO2 ./ pars.y_CO2C)) + ...
-     (1 / (j_I ./ pars.y_IC)) -  (1 / ((j_I / pars.y_IC) + (j_CO2 ./ pars.y_CO2C)))) ^(-1) ; %% mol C mol V-1 h-1
+j_EC_A = ( (1 / j_ECAm_CT) + (1 / (j_CO2 ./ pars.y_CEC)) + ...
+     (1 / (j_I ./ pars.y_IEC)) -  (1 / ((j_I / pars.y_IEC) + (j_CO2 ./ pars.y_CEC)))) ^(-1) ; %% mol C mol V-1 h-1
 
 % Nitrogen into reserve
 j_EN_A = j_ENAm_CT * (forcingVariables.N / (forcingVariables.N + pars.K_N)); % mol N mol V-1 h-1

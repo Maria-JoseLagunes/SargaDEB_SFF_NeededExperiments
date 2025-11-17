@@ -94,9 +94,9 @@ for r=1:length(uniqueDatasets)
             'MarkerFaceColor', colors_palette(r+1, :), ...
             'Marker', dataForm{r});              
 end
+set(gca, 'FontSize', 20)
 
-
-xlabel("Temperature (°C)", 'FontSize', 18); ylabel("Normalized growth rate (-)", 'FontSize',18)
+xlabel("Temperature (°C)", 'FontSize', 22); ylabel("Normalized growth rate (-)", 'FontSize',22)
 % legend(["HS1987", "MG2023a" , "MG2023b"], "Location",'best')
 
 legend(["Hanisak and Samuel 1987", "Magaña-Gallegos et al 2023a" , "Magaña-Gallegos et al 2023b"], "Location",'best')
@@ -207,7 +207,7 @@ end
 
 plot(T,temperatureEffect_estimated_vector, '-', 'Color', colors_palette(7,:), ...
      'LineWidth', 1.7); hold on;
-xlabel("Temperature (°C)", 'FontSize', 18); ylabel("Normalized growth rate(-)", 'FontSize', 18)
+xlabel("Temperature (°C)", 'FontSize', 22); ylabel("Normalized growth rate(-)", 'FontSize', 22)
 
 % legend(["HS1987", "MG2023a" , "MG2023b","Created Arrhenius vector", "Arrhenius parameter estimation"], "Location",'best')
 % legend(["Hanisak and Samuel 1987", "Magaña-Gallegos et al 2023a" , "Magaña-Gallegos et al 2023b","Created Arrhenius vector", "Arrhenius parameter estimation"], "Location",'best')
@@ -224,7 +224,7 @@ r = figure(1);
 ax = findall(r, 'Type', 'axes');  % Find the axes inside the figure
 x_limits = xlim(ax);
 y_limits = ylim(ax);
-set(ax, 'FontSize', 18);  % Ajuste 16 à la taille souhaitée
+set(ax, 'FontSize', 22); 
 xlim(x_limits);
 ylim(y_limits);
 %%
@@ -257,7 +257,7 @@ figName = strcat("ArrheniusEstimation", timeStamp,".pdf");
 figName2 = strcat("ArrheniusEstimation", timeStamp, ".png");
 
 %% Save figure
-cd /home/LAGUNES/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1/Sargassum_fluitans/
+
 set(gcf,'PaperOrientation','landscape');
 % plotting in A4 format and positioning the plot in the PDF
 set(gcf,'PaperUnits','centimeters'); set(gcf,'PaperType','A4'); set(gcf,'PaperPosition',[1. 1. 22. 14.]);

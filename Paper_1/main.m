@@ -1,27 +1,13 @@
 %% Main file to do simulations
 % Call for solver 
 % Maria José Lagunes
-% Last modified : 11/12/2024
 % ---------------------------------------------------------------------
 
 clear all
 
-% Lab
 
-addpath(genpath('/home/LAGUNES/Documents/GitHub/SargaDEB_working/DEBtool_M-master'))
-addpath(genpath('/home/LAGUNES/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1'))
-cd /home/LAGUNES/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1/
+% ATTENTION : include the DEBtool-M tool in the path
 
-%Laure
-
-% addpath(genpath('/Users/laurepecquerie/Documents/GitHub/DEBtool_M'))
-% addpath(genpath('/Users/laurepecquerie/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1'))
-% cd /Users/laurepecquerie/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1/
-
-% Home 
-% addpath(genpath('C:\Users\Majo\Documents\PhD\SargaDEB_home\DEBtool_M-master'))
-% addpath(genpath('C:\Users\Majo\Documents\PhD\SargaDEB_home\matlab\multi_DEB\Cleaningcodes'))
-% cd C:\Users\Majo\Documents\PhD\SargaDEB_home\matlab\multi_DEB\Cleaningcodes
 
 %% 1 Call integration and perform it to exit integration values
 % Initialize iteration counter

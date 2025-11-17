@@ -29,8 +29,8 @@ k_I_CT_HL = k_I * TC_HL; % mol γ mol PSU–1 h–1
 k_I_CT_LL = k_I * TC_LL; % mol γ mol PSU–1 h–1
 
 %Transform parameters with z factor algal
-dwratio_SF = dwratio * zalgal ; % gWd/gWw, Dry to wet (gdw/gww) weight ratio
-smcoeff_SF = smcoeff / zalgal;  % g cm-2, Coefficient of linear regression from Chambon
+dwratio_SF = phi_dw * zalgal ; % gWd/gWw, Dry to wet (gdw/gww) weight ratio
+smcoeff_SF = psi_s / zalgal;  % g cm-2, Coefficient of linear regression from Chambon
 
 
 I_light = 0:1500; % micro mol m-2 s-1
@@ -47,7 +47,7 @@ rho_PSU_HL =  0.5;
 J_I_HL = (rho_PSU_HL * I * eps_I) ./ ...                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
     (1 +  (I * eps_I) / k_I_CT_HL); %% mol gamma mol V-1 h-1
 
-J_O2_HL =  J_I_HL .* (M_V / Wd)  * y_LO2 * smcoeff_SF * dwratio_SF / 1e-6; %micro mol 02 cm-2  h-1
+J_O2_HL =  J_I_HL .* (M_V / Wd)  * y_OI * smcoeff_SF * dwratio_SF / 1e-6; %micro mol 02 cm-2  h-1
 
 
 rho_PSU_LL =  0.17;
@@ -55,7 +55,7 @@ rho_PSU_LL =  0.17;
 J_I_LL = (rho_PSU_LL* I* eps_I) ./ ...                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
     (1 +  (I* eps_I) / k_I_CT_LL) ; %% mol gamma mol V-1 h-1
 
-J_O2_LL =  J_I_LL .* (M_V / Wd)  * y_LO2 * smcoeff_SF * dwratio_SF / 1e-6; % micro mol 02 cm-2  h-1
+J_O2_LL =  J_I_LL .* (M_V / Wd)  * y_OI * smcoeff_SF * dwratio_SF / 1e-6; % micro mol 02 cm-2  h-1
 
 
 
