@@ -12,11 +12,10 @@
 % selected
 % petregr_f : to conduct the estimation
 
+addpath(genpath('/home/LAGUNES/Documents/GitHub/SargaDEB_working/DEBtool_M-master'))
 
 clc; clear; close all;
-
-addpath(genpath('/home/LAGUNES/Documents/GitHub/SargaDEB_working/DEBtool_M-master'))
-myPath = '/home/LAGUNES/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1';
+myPath = '/home/LAGUNES/Documents/GitHub/SargaDEB_SFF_NeededExperiments/Paper_1';
 addpath(genpath(myPath))
 addpath(genpath(strcat(myPath,'/Identifiability')));
 workPath = strcat(myPath, '/Identifiability/ExperimentalCreation/Experiments'); 
@@ -24,26 +23,35 @@ workPath = strcat(myPath, '/Identifiability/ExperimentalCreation/Experiments');
 
 
 %% 1. Create experimental data 
-% !!! ATTENTION !!! you must be inside the directory of experience being
-% created
-%
-% Write the experiment you want to create by writing
-%
+
 % * TC_Ww : if modification of data to evaluate wet weight evolution at
 % different temperatures
 % * TC_Ww_twoDays : if modification of data to evaluate wet weight evolution at
 % different temperatures with only initial and final weight
 % * Nutrient_uptake : if simulation of nutrient uptake SU for nitrogen
 
-% prompt = "What experimental data are you creating? ";
-% experimentName = input(prompt); 
 
-% !!! ATTENTION !! Now codes are automated to perform the for experiments
-% each time something changes 
-global pets
+% !!! ATTENTION !! Codes are automated to perform the four experiments
+% each time something changes, if not change the list of experiments just
+% to perform the ones wanted
+
+global pets pars_init_method
+
+
 pets = {'Sargassum_fluitans'};
 
-listExperiments = {'TC_Ww', 'N_uptake', 'TC_Ww_twoDays', 'Starvation'};
+% Select pars_init_method 1 to obtain initial parameters
+% Select pars_init_method 2 to obtain parameters from .mat from estimated
+% parameters
+
+pars_init_method = 2; 
+
+
+% listExperiments = {'TC_Ww', 'N_uptake', 'TC_Ww_twoDays', ...
+    % 'Starvation', 'Starv_nolight', 'Starv_fiveDays'};
+
+listExperiments = {'TC_Ww', 'N_uptake', 'TC_Ww_twoDays', ...
+    'Starvation'};
 
 
 for i = 1:length(listExperiments)
@@ -58,15 +66,16 @@ for i = 1:length(listExperiments)
 
     
     if contains(experimentName, 'TC_Ww') || contains(experimentName, 'Starvation') ...
-            || contains(experimentName, 'TC_Ww_twoDays')
+            || contains(experimentName, 'TC_Ww_twoDays')  || contains(experimentName, 'Starv')
         [simu, obs] = run_simulation(); %Function called to perform the complete DEB multireserves ...
         % model based on a preivously edited init file
     elseif contains(experimentName, 'N_uptake')
-        [simu, obs] = run_Nuptake(0:7:50,[22 26 28]); %Function called to perform assimilation box of the DEB model for N uptake
+        [simu, obs] = run_Nuptake([0 0.02 0.05 0.08 0.2 0.4 0.5:0.5:2.5],[24 26 28]); %Function called to perform assimilation box of the DEB model for N uptake
     end
-    save_simulation_data(simu, obs, pets); %Function created to save simu and observation for later use as mydata
+     save_simulation_data(simu, obs, pets); %Function created to save simu and observation for later use as mydata
 
 end
+
 
 %% 2. Saving experimental data
 % %Save to use in anaylsis

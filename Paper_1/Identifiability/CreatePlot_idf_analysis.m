@@ -1,7 +1,7 @@
 %Work
 addpath(genpath('/home/LAGUNES/Documents/GitHub/SargaDEB_working/DEBtool_M-master'))
-cd /home/LAGUNES/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1
-addpath(genpath("/home/LAGUNES/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1/"))
+cd /home/LAGUNES/Documents/GitHub/SargaDEB_SFF_NeededExperiments/Paper_1/
+addpath(genpath("/home/LAGUNES/Documents/GitHub/SargaDEB_SFF_NeededExperiments/Paper_1/"))
 
 %Laure
   % addpath(genpath('/Users/laurepecquerie/Documents/GitHub/SargaDEB_working/DEBtool_M-master'))
@@ -46,17 +46,15 @@ pets={'Sargassum_fluitans'};
 clf
 
 
-    all_which_data = {
-
+      all_which_data =  {
     [1 3 4]
     [1 3 4 5]
 
     [1 3 4 5 7]
     [1 3 4 5 9]
-    [1 3 4 5 7 9]
-
     [1 3 4 7 9]
-    };
+
+    [1 3 4 5 7 9]};
 
   
 
@@ -64,7 +62,9 @@ f = figure(2); % Same figure to accumulate plots
 hold on; % Keep all the previous plots
 
 % timeStamp = char(datetime('now','Format','dd_MM_uuuu'));
-timeStamp = char('22_07_2025');
+timeStamp = char('03_02_2026');
+% timeStamp = char('23_01_2026');
+% timeStamp = char('22_07_2025');
 % timeStamp = char('18_09_2025');
 % timeStamp = char('23_09_2025');
 numParams = 8; 
@@ -92,16 +92,20 @@ varFactor = varFactor_list(j); % Variation factor, 10%
 end
 
 %% Save figure
-timeStamp = "24102025"; 
+
+% !!!!! Change timestap when creating new figure !!!!
+timeStamp = "'03022026'"; 
+
+
 set(gcf,'PaperOrientation','landscape');
 set(gcf,'PaperUnits','centimeters'); 
 set(gcf,'PaperType','A4');
-set(gcf,'PaperPosition',[3 5 15 20]);
-set(gcf,'PaperSize',[21,20]);
+set(gcf,'PaperPosition',[2 2 18 25]);
+set(gcf,'PaperSize',[20,32]);
 figName = strcat('idf_analsysis_diffscale', timeStamp , '.pdf'); 
 figName_png = strcat('idf_analsysis_diffscale',timeStamp, '.png'); 
 
-print(figName,'-vector','-bestfit','-dpdf')
+print(figName,'-vector','-dpdf')
 print(figName_png,'-dpng', '-r600')
 %%
 fig1 = gcf;
@@ -127,16 +131,17 @@ margin = 0.05 * yrange;
 %%
 for i = 1:length(ax)
     ylim(ax(i), [ymin-margin ymax+margin]);
-    ylim(ax(i), [-0.15 ymax+margin]);
+    % ylim(ax(i), [-0.10 ymax+margin]);
 end
 %%
+
 set(gcf,'PaperOrientation','landscape');
 set(gcf,'PaperUnits','centimeters'); 
 set(gcf,'PaperType','A4');
-set(gcf,'PaperPosition',[3 5 15 20]);
-set(gcf,'PaperSize',[21,20]);
+set(gcf,'PaperPosition',[2 2 18 25]);
+set(gcf,'PaperSize',[20,32]);
 figName = strcat('idf_analsysis_samescale', timeStamp , '.pdf'); 
 figName_png = strcat('idf_analsysis_samescale',timeStamp, '.png'); 
 
-print(figName,'-vector','-bestfit','-dpdf')
+print(figName,'-vector','-dpdf')
 print(figName_png,'-dpng', '-r600')

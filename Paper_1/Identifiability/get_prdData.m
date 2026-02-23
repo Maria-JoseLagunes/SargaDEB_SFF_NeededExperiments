@@ -1,4 +1,4 @@
-% cd /home/LAGUNES/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1
+% cd '/home/LAGUNES/Documents/GitHub/SargaDEB_SFF_NeededExperiments/Paper_1'
 
 %%
 global pets pars_init_method n_pets results_output
@@ -9,8 +9,8 @@ global pets pars_init_method n_pets results_output
 % pets == in this case only equal to Sargassum_fluitans
 %
 % 
-pars_init_method = 1;
-
+pars_init_method = 2;
+results_output = 1; %So no .mat is saved and figures are shown but not saved
 
 pets = {'Sargassum_fluitans'};
 n_pets = length(pets);
@@ -28,7 +28,7 @@ elseif pars_init_method == 2
 end
 
 [data, auxData, metaData, txtData, weights] = mydata_pets;
-results_output = 3;
+
 
 [prdData, dataVec, data2plot, prdData_x] = obtainingPredictData(par, metaPar, txtPar, data, auxData, metaData, txtData, weights); %function to obatin data from predictions
 %With 100 points
@@ -65,13 +65,17 @@ dataAvailable = [x_data_original];
 %% Save the available pseudo observations
 save('Identifiability/ExperimentalCreation/Experiments/dataAvailable', 'dataAvailable')
 %% Plots the available datasets
+results_output = -3;  % Modified to print figures and save them, save the html file but not the .mat file 
 results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, txtData, weights)
 
 
 %% Plots the available pseudo observations 
-% If ran in the Identifaibility binder it will also plot the new pseudo observations
+% !!!! If ran in the Identifaibility binder it will also plot the new pseudo observations
 data2.Sargassum_fluitans = dataAvailable;
+results_output = -3; % Modified to print figures and save them, save the html file but not the .mat file 
 
 results_pets_newColors(par, metaPar, txtPar,data2, auxData, metaData, txtData, weights)
 
-% results_pets_nonlydata(par, metaPar, txtPar,data2, auxData, metaData, txtData, weights)
+% results_pets_onlyData(par, metaPar, txtPar,data2, auxData, metaData, txtData, weights)
+
+load("dataExperiment.mat")

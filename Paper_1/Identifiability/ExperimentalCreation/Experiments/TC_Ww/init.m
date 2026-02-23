@@ -9,12 +9,12 @@
 % ---------------------------------------------------------------------
 function simulationConditions = init
 
-global pets
+global pets pars_init_method
 
 dataset_list = {'temperatureSimulations', 'nutrientSimulations'};
 
 pets = {'Sargassum_fluitans'};
-pars_init_method = 1; %1 = from initial parameters %2 from .mat estimation of parameters
+% pars_init_method = 1; %1 = from initial parameters %2 from .mat estimation of parameters
 
 
 dataset = dataset_list{1}; % Choose dataset from list of datasets
@@ -46,7 +46,7 @@ if contains(dataset, 'temperatureSimulations')
        % tSpinTune  = ( tSpinTune_days   * 24); % hours
       
        Ww0 = 2.5 ; %g Ww, initial wet biomass 
-       dW0_ash = Ww0 * par.dwratio;  %g dW, initial dry weight biomass
+       dW0_ash = Ww0 * par.phi_dw;  %g dW, initial dry weight biomass
        dW0 = dW0_ash * (1 - par.x_moist - par.x_ash); 
        M_V_0 = dW0 / (par.w_V +   (par.m_EN_0 * par.w_EN) +   (par.m_EC_0 * par.w_EC)); % mol V, structural intial mass
               
@@ -93,7 +93,7 @@ elseif contains(dataset, 'nutrientSimulations')
      
       
        Ww0 = 6 ; %g Ww, initial wet biomass 
-       dW0_ash = Ww0 * par.dwratio;  %g dW, initial dry weight biomass
+       dW0_ash = Ww0 * par.phi_dw;  %g dW, initial dry weight biomass
        dW0 = dW0_ash * (1 - par.x_moist - par.x_ash); 
        M_V_0 = dW0 / (par.w_V +   (par.m_EN_0 * par.w_EN) +   (par.m_EC_0 * par.w_EC)); % mol V, structural intial mass
               

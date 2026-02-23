@@ -14,11 +14,15 @@ function resultsStructure = estimate_parameters(varFactor, label, data_setweight
 % selected
 % petregr_f : to conduct the estimation
 
-global pets
+global pets max_step_number max_fun_evals pars_init_method results_output method
 
 
 % set all of the estimation options:
 estim_options('default'); 
+max_step_number = 5e2; 
+max_fun_evals =  5e3; 
+pars_init_method = 1;  % From .mat file with new values
+
 nmregr_options('report', 0);  % does not report to screen to save time
 
 % Load data and initial parameters
@@ -35,7 +39,19 @@ for i=1:length(fieldsData)
 end
 
 
-[par, metaPar, txtPar] = feval(['pars_init_',  pets{1}], metaData);
+pars_initnm = ['pars_init_', pets{1}];
+resultsnm   = ['results_', pets{1}, '.mat'];
+auxDatanm = ['auxData.', pets{1}];
+
+
+if pars_init_method == 2
+   [par, metaPar, txtPar] = feval(pars_initnm, []);
+elseif pars_init_method == 1
+   load(resultsnm, 'par');
+   load(resultsnm, 'metaPar');
+   load(resultsnm, 'txtPar');
+end
+
 [prdData0, info] = feval(['predict_', pets{1}], par, data, auxData); 
 filternm = ['filter_', metaPar.model];
 
@@ -44,6 +60,8 @@ filternm = ['filter_', metaPar.model];
 % and deviate the seed with the selected variation
 paramNames = fieldnames(par.free);
 freeParams = paramNames(cellfun(@(p) par.free.(p) == 1, paramNames));
+
+
 
 % Store original parameters
 originalPar = par; 

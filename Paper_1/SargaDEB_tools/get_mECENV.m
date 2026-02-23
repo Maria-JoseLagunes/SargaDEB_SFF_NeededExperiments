@@ -84,6 +84,9 @@ a = 0;
 [r, jEC, jEM, jVM, jER, infosgr2 ] = sgr2_Sargassum(m_E, k_E, j_EM_pars, y_EV, j_VM_pars, a, r0);  %Routine from DEBtool M 
 %jEC correspond to vector of mobilisation rate 
 
+if (jER(1)*jER(2))<=0
+    jjj = 1; 
+end
 
 j_EC_C = jEC(1); % mol C mol V-1 h-1, Corresponds to j_EiC = mEi (k_Ei - r), mobilised C reserve
 j_EN_C = jEC(2); % mol N mol V-1 h-1, Corresponds to j_EiC = mEi (k_Ei - r), mobilised N reserve
@@ -114,7 +117,7 @@ j_EN_G = j_EN_C - j_EN_MN; % mol N mol V-1 h-1, Growth specific flux from N rese
 
 % Specific growth flux
 
-j_VG = (   (  (j_EC_G / pars.y_ECV)^(-1) + (j_EN_G / pars.y_ENV)^(-1) ) - ...
+j_VG = ((  (j_EC_G / pars.y_ECV)^(-1) + (j_EN_G / pars.y_ENV)^(-1) ) - ...
 ((j_EC_G / pars.y_ECV) + (j_EN_G / pars.y_ENV))^(-1))^(-1);  %h-1
 
 
@@ -135,7 +138,7 @@ j_EN_R = jER(2); % mol N mol V-1 h-1
 %% Model dynamics
 dmECdt = j_EC_A - j_EC_C + (pars.kap_EC * j_EC_R) - (r * m_EC) ; % mol C mol V-1 h-1, carbon reserve density
 dmENdt = j_EN_A - j_EN_C + (pars.kap_EN * j_EN_R) - (r * m_EN) ; % mol N mol V-1 h-1, nitrogen reserve density
-dMVdt = r * M_V ;
+dMVdt = r * M_V ; % mol V h-1
 
 
 

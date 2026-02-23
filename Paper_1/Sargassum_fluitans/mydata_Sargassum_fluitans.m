@@ -306,15 +306,9 @@ data_I_J_O2_VE2023_HL = [ ... % Light intensity [micro mol quanta m-2 s-1], gros
                       1228	1.389586446
                       1500	1.466176878];
 
-dwratio = 0.178;      
-smcoeff = 0.1727;    
-
 data.I_J_O2_VE2023_HL(:,1) =  data_I_J_O2_VE2023_HL(:,1); 
 data.I_J_O2_VE2023_HL(:,2) =  data_I_J_O2_VE2023_HL(:,2); 
-% data.I_J_O2_VE2023_HL(:,2) =  data_I_J_O2_VE2023_HL(:,2) / smcoeff/ dwratio ; %micro mol O2 gdw-1 h-1 For comparaison with Venolia 
 units.I_J_O2_VE2023_HL = {'micro mol quanta m^{-2} s^{-1}', 'micro mol O_2 cm^{-2} h^{-1}'};
-% units.I_J_O2_VE2023_HL = {'micro mol quanta m-2 s-1', 'micro mol O2 gdW-1
-% h-1'};w
 label.I_J_O2_VE2023_HL = {'Light intensity', 'Gross photosynthesis rate'}; 
 
 surface.I_J_O2_VE2023_HL = 1.5 ; units.surface.I_J_O2_VE2023_HL = 'cm^2'; label.surface.I_J_O2_VE2023_HL = 'Initial surface'; 
@@ -326,134 +320,6 @@ bibkey.I_J_O2_VE2023_HL =  'vasquezelizondo_growth_2023';
 comment.I_J_O2_VE2023_HL = 'SF3 adapted to high light conditions before testing irradiance effect (HL corresponds to = 657 +- 11 micro mol quanta m-2 s-1 at 12:12 period ';
 
 
-
-
-% data_I_J_O2_VE2023_LL = [ ...  % Light intensity [micro mol quanta m-2 s-1], gross photosynthesis rate [micro mol O2 cm-2 h-1]  %Data obtained from Roman
-%                         0       0
-%                         25      0.49317336
-%                         44      0.703456499
-%                         65      0.813412543
-%                         85      0.848097986
-%                         99      0.880773596
-%                         150     0.91267179
-%                         185     0.916707401
-%                         346     0.897195079
-%                         648     0.842498429
-%                         944     0.8337302
-%                         1228    0.779897532
-%                         1504    0.759838253];
-% 
-% 
-% data.I_J_O2_VE2023_LL(:,1) =  data_I_J_O2_VE2023_LL(:,1) ; % 
-% % data.I_J_O2_VE2023_LL(:,2) =  data_I_J_O2_VE2023_LL(:,2)  ; % 
-% data.I_J_O2_VE2023_LL(:,2) =  data_I_J_O2_VE2023_LL(:,2) / smcoeff/ dwratio ; % 
-% % units.I_J_O2_VE2023_LL = {'micro mol quanta m-2 s-1', 'micro mol O2 cm-2 h-1'};
-% units.I_J_O2_VE2023_LL  = {'micro mol quanta m-2 s-1', 'micro mol O2 gdW-1 h-1'};
-% label.I_J_O2_VE2023_LL= {'Light intensity', 'Gross photosynthesis rate'}; 
-% 
-% surface.I_J_O2_VE2023_LL = 1.5 ; units.surface.I_J_O2_VE2023_LL = 'cm^2'; label.surface.I_J_O2_VE2023_LL = 'Initial surface'; 
-% temp.I_J_O2_VE2023_LL = C2K(23); units.temp.I_J_O2_VE2023_LL = 'K'; label.temp.I_J_O2_VE2023_LL = 'Temperature'; 
-% photoPeriod.I_J_O2_VE2023_LL   = 1; units.photoPeriod.I_J_O2_VE2023_LL = '-'; label.photoPeriod.I_J_O2_VE2023_LL = "Photoperiod"; 
-% 
-% bibkey.I_J_O2_VE2023_LL =  'vasquezelizondo_growth_2023'; 
-% comment.I_J_O2_VE2023_LL = 'SF3 adapted to low light conditions before testing irradiance effect (LL corresponds to = 105 +-4 micro mol quant m-1 s-1 at 12:12 period';
-% 
-% 
-% 
-
-% Irradiance condition - GR - CN content
-
-% time (days), wet weight from growth rate (doubling d-1)
-% data_VE_I_GR = [  ... %light intensity (micro mol E m-2 s-1) ,   day, daily growth rate dgr (%FW day-1), C content (% DW), N content (% DW)
-%                         105	    1      1.5        0       0;
-%                         105	    8      -1.4029    0       0;
-%                         105     15     -0.3237    0       0; 
-%                         105	    22     2.1799     32.2    2.7;    
-%                         333	    1      1.5        0       0;
-%                 	    333	    8      6.0432     0       0;      
-%                         333     15     5.9353     0       0;
-%                         333	    22     4.4460     30.7    1.8;  
-%                         657	    1      1.5        0       0
-%                         657	    8      7.4245     0       0
-%                         657     15     9.3669     0       0
-%                         657	    22     6.2374     32	  1.6];
-% %LL                        
-% Ww0.tWw_VE2023_LL = 1.5 ; units.Ww0.tWw_VE2023_LL   = 'g Ww'; label.Ww0.tWw_VE2023_LL   = 'Initial wet weight';
-% time.tWw_VE2023_LL  = 21;  units.time.tWw_VE2023_LL  = 'd'; label.time.tWw_VE2023_LL   = 'days';
-% WWf.tWw_VE2023_LL = Ww0.tWw_VE2023_LL *  (( (data_VE_I_GR(1:4,3) / 100) + 1).^ ((data_VE_I_GR(1:4,2))));
-% data.tWw_VE2023_LL = [data_VE_I_GR(1:4,2) WWf.tWw_VE2023_LL ] ;
-% units.tWw_VE2023_LL = {'d', 'g Ww'}; label.tWw_VE2023_LL = {'days', 'wet weight'};
-% 
-% data.C_gdW_VE2023_LL = [data_VE_I_GR(4,1) data_VE_I_GR(4,4) ] ;
-% units.C_gdW_VE2023_LL = {'micro mol E m{-2} s{-1}', '%C (gdW)'}; label.C_gdW_VE2023_LL = {'light intensity', '%C (gdW)'};
-% 
-% data.N_gdW_VE2023_LL = [data_VE_I_GR(4,1) data_VE_I_GR(4,5) ] ;
-% units.N_gdW_VE2023_LL = {'micro mol E m{-2} s{-1}', '%N (gdW)'}; label.N_gdW_VE2023_LL = {'light intensity', '%N (gdW)'};
-% 
-% temp.tWw_VE2023_LL  = C2K(23); units.temp.tWw_VE2023_LL  = 'K'; label.temp.tWw_VE2023_LL  = 'temperature'; 
-% light.tWw_VE2023_LL = data_VE_I_GR(1,1) * 1e-6 * 3600; units.light.tWw_VE2023_LL = 'mol gamma m-2 h-1'; label.light.tWw_VE2023_LL = "light intensity"; 
-% nitrogen.tWw_VE2023_LL = (3.19 + 67.9) * 1e-6 ; units.nitrogen.tWw_VE2023_LL = 'mol NO3 + NH4 L-1'; label.nitrogen.tWw_VE2023_LL = "N concentration"; 
-% CO2.tWw_VE2023_LL = 0.002 ; units.CO2.tWw_VE2023_LL = 'mol CO2 L-1'; label.CO2.tWw_VE2023_LL = "C concentration"; 
-% phosphorous.tWw_VE2023_LL  =  9.6 * 1e-6; units.phosphorous.tWw_VE2023_LL = 'mol P043- L-1 '; label.phosphorous.tWw_VE2023_LL = "P concentration"; 
-% photoPeriod.tWw_VE2023_LL   = 1; units.photoPeriod.tWw_VE2023_LL = '-'; label.photoPeriod.tWw_VE2023_LL = "Photoperiod"; 
-% 
-% bibkey.tWw_VE2023_LL  = 'vasquezelizondo_growth_2023'; 
-% bibkey.C_gdW_VE2023_LL  = 'vasquezelizondo_growth_2023'; 
-% bibkey.N_gdW_VE2023_LL  = 'vasquezelizondo_growth_2023'; 
-% 
-% %ML
-% Ww0.tWw_VE2023_ML = 1.5 ; units.Ww0.tWw_VE2023_ML   = 'g Ww'; label.Ww0.tWw_VE2023_ML   = 'Initial wet weight';
-% time.tWw_VE2023_ML  = 21;  units.time.tWw_VE2023_ML  = 'd'; label.time.tWw_VE2023_ML   = 'days';
-% WWf.tWw_VE2023_ML = Ww0.tWw_VE2023_ML *  (( (data_VE_I_GR(5:8,3) / 100) + 1).^ (data_VE_I_GR(1:4,2)));
-% data.tWw_VE2023_ML = [data_VE_I_GR(5:8,2) WWf.tWw_VE2023_ML ] ;
-% units.tWw_VE2023_ML = {'micro mol E m{-2} s{-1}', 'g Ww'}; label.tWw_VE2023_ML = {'days', 'wet weight'};
-% 
-% data.C_gdW_VE2023_ML = [data_VE_I_GR(8,1) data_VE_I_GR(8,4) ] ;
-% units.C_gdW_VE2023_ML = {'micro mol E m{-2} s{-1}', '%C (gdW)'}; label.C_gdW_VE2023_ML = {'light intensity', '%C (gdW)'};
-% 
-% data.N_gdW_VE2023_ML = [data_VE_I_GR(8,1) data_VE_I_GR(8,5) ] ;
-% units.N_gdW_VE2023_ML = {'d', '%N (gdW)'}; label.N_gdW_VE2023_ML = {'light intensity', '%N (gdW)'};
-% 
-% 
-% 
-% temp.tWw_VE2023_ML  = C2K(23); units.temp.tWw_VE2023_ML  = 'K'; label.temp.tWw_VE2023_ML  = 'temperature'; 
-% light.tWw_VE2023_ML = data_VE_I_GR(8,1) * 1e-6 * 3600; units.light.tWw_VE2023_ML = 'mol gamma m-2 h-1'; label.light.tWw_VE2023_ML = "light intensity"; 
-% nitrogen.tWw_VE2023_ML = (3.19 + 67.9) * 1e-6 ; units.nitrogen.tWw_VE2023_ML = 'mol NO3 + NH4 L-1'; label.nitrogen.tWw_VE2023_ML = "N concentration"; 
-% CO2.tWw_VE2023_ML = 0.002 ; units.CO2.tWw_VE2023_ML = 'mol CO2 L-1'; label.CO2.tWw_VE2023_ML = "C concentration"; 
-% phosphorous.tWw_VE2023_ML  =  9.6 * 1e-6; units.phosphorous.tWw_VE2023_ML = 'mol P043- L-1 '; label.phosphorous.tWw_VE2023_ML = "P concentration"; 
-% photoPeriod.tWw_VE2023_ML   = 1; units.photoPeriod.tWw_VE2023_ML = '-'; label.photoPeriod.tWw_VE2023_ML = "Photoperiod"; 
-% 
-% bibkey.tWw_VE2023_ML  = 'vasquezelizondo_growth_2023'; 
-% bibkey.C_gdW_VE2023_ML  = 'vasquezelizondo_growth_2023'; 
-% bibkey.N_gdW_VE2023_ML  = 'vasquezelizondo_growth_2023'; 
-% 
-% 
-% %HL
-% Ww0.tWw_VE2023_HL = 1.5 ; units.Ww0.tWw_VE2023_HL   = 'g Ww'; label.Ww0.tWw_VE2023_HL   = 'Initial wet weight';
-% time.tWw_VE2023_HL  = 21;  units.time.tWw_VE2023_HL  = 'd'; label.time.tWw_VE2023_HL   = 'days';
-% WWf.tWw_VE2023_HL = Ww0.tWw_VE2023_HL *  (( (data_VE_I_GR(9:12,3) / 100) + 1).^ (data_VE_I_GR(1:4,2)));
-% data.tWw_VE2023_HL = [data_VE_I_GR(9:12,2) WWf.tWw_VE2023_HL ] ;
-% units.tWw_VE2023_HL = {'d', 'g Ww'}; label.tWw_VE2023_HL = {'days', 'wet weight'};
-% 
-% data.C_gdW_VE2023_HL = [data_VE_I_GR(12,1) data_VE_I_GR(12,4) ] ;
-% units.C_gdW_VE2023_HL = {'micro mol E m{-2} s{-1}', '%C (gdW)'}; label.C_gdW_VE2023_HL = {'light intensity', '%C (gdW)'};
-% 
-% data.N_gdW_VE2023_HL = [data_VE_I_GR(12,1) data_VE_I_GR(12,5) ] ;
-% units.N_gdW_VE2023_HL = {'micro mol E m{-2} s{-1}', '%N (gdW)'}; label.N_gdW_VE2023_HL = {'light intensity', '%N (gdW)'};
-% 
-% 
-% 
-% temp.tWw_VE2023_HL  = C2K(23); units.temp.tWw_VE2023_HL  = 'K'; label.temp.tWw_VE2023_HL  = 'temperature'; 
-% light.tWw_VE2023_HL = data_VE_I_GR(12,1) * 1e-6 * 3600; units.light.tWw_VE2023_HL = 'mol gamma m-2 h-1'; label.light.tWw_VE2023_HL = "light intensity"; 
-% nitrogen.tWw_VE2023_HL = (3.19 + 67.9) * 1e-6 ; units.nitrogen.tWw_VE2023_HL = 'mol NO3 + NH4 L-1'; label.nitrogen.tWw_VE2023_HL = "N concentration"; 
-% CO2.tWw_VE2023_HL = 0.002 ; units.CO2.tWw_VE2023_HL = 'mol CO2 L-1'; label.CO2.tWw_VE2023_HL = "C concentration"; 
-% phosphorous.tWw_VE2023_HL  =  9.6 * 1e-6; units.phosphorous.tWw_VE2023_HL = 'mol P043- L-1 '; label.phosphorous.tWw_VE2023_HL = "P concentration"; 
-% photoPeriod.tWw_VE2023_HL   = 1; units.photoPeriod.tWw_VE2023_HL = '-'; label.photoPeriod.tWw_VE2023_HL = "Photoperiod"; 
-% 
-% bibkey.tWw_VE2023_HL  = 'vasquezelizondo_growth_2023'; 
-% bibkey.C_gdW_VE2023_HL  = 'vasquezelizondo_growth_2023'; 
-% bibkey.N_gdW_VE2023_HL  = 'vasquezelizondo_growth_2023'; 
-% 
 
 %% New datasets 
 
@@ -510,9 +376,9 @@ if contains(pwd,'Identifiability')
             photoPeriod.(nm_exp)   = dataExperiment.(nm_exp).photoPeriod; units.photoPeriod.(nm_exp)  = '- '; label.photoPeriod.(nm_exp)  = "Photoperiod"; 
 
         elseif contains(nm_exp,'N_uptake')
-            data.(nm_exp) = [(dataExperiment.(nm_exp).NitrateConcentration * 1e-6)',  (dataExperiment.(nm_exp).NitrateAssimilation * 1e-6)'] ;
+            data.(nm_exp) = [(dataExperiment.(nm_exp).NitrateConcentration)',  (dataExperiment.(nm_exp).NitrateAssimilation)'] ;
             Ww0.(nm_exp) =  dataExperiment.(nm_exp).Ww0;  units.Ww0.(nm_exp)   = 'g Ww'; label.Ww0.(nm_exp)   = 'Initial wet weight';
-            units.(nm_exp) = {'mol NO3 L-1', 'mol N g dW-1 hr-1'}; label.(nm_exp) = {'Nitrate concentration', 'Nitrogen uptake rate'}; 
+            units.(nm_exp) = {'micro mol NO3 L-1', 'micro mol N g dW-1 hr-1'}; label.(nm_exp) = {'Nitrate concentration', 'Nitrogen uptake rate'}; 
             temp.(nm_exp)   = C2K(dataExperiment.(nm_exp).temp); units.temp.(nm_exp)   = 'K'; label.temp.(nm_exp)   = 'temperature'; 
             
         end
@@ -532,8 +398,7 @@ weights.tWw_MG2023b_28 = weights.tWw_MG2023b_28 * 10;
 weights.tWw_MG2023b_31 = weights.tWw_MG2023b_31 * 10; 
 
 
-weights.I_J_O2_VE2023_HL=  weights.I_J_O2_VE2023_HL * 0.25;
-% weights.I_J_O2_VE2023_LL =  weights.I_J_O2_VE2023_LL * 1;
+weights.I_J_O2_VE2023_HL =  weights.I_J_O2_VE2023_HL * 1;
 
 
 weights.tWw_HS1987_12 = weights.tWw_HS1987_12 * 0; 
@@ -541,19 +406,6 @@ weights.tWw_HS1987_18 = weights.tWw_HS1987_18 * 0;
 weights.tWw_HS1987_24 = weights.tWw_HS1987_24 * 0; 
 weights.tWw_HS1987_30 = weights.tWw_HS1987_30 * 0; 
 
-
-
-% weights.tWw_VE2023_LL = weights.tWw_VE2023_LL * 1; 
-% weights.tWw_VE2023_ML = weights.tWw_VE2023_ML * 1; 
-% weights.tWw_VE2023_HL = weights.tWw_VE2023_HL * 1; 
-% 
-% weights.C_gdW_VE2023_LL = weights.C_gdW_VE2023_LL * 1; 
-% weights.C_gdW_VE2023_ML = weights.C_gdW_VE2023_ML * 1; 
-% weights.C_gdW_VE2023_HL = weights.C_gdW_VE2023_HL * 1; 
-% 
-% weights.N_gdW_VE2023_LL = weights.N_gdW_VE2023_LL * 1; 
-% weights.N_gdW_VE2023_ML = weights.N_gdW_VE2023_ML * 1; 
-% weights.N_gdW_VE2023_HL = weights.N_gdW_VE2023_HL * 1; 
 
 
 %% Setting up weights and auxdata if in Identifiability analysis
@@ -607,14 +459,7 @@ auxData.Ww0.tWw_HS1987_24 = Ww0.tWw_HS1987_24;
 auxData.Ww0.tWw_HS1987_30 = Ww0.tWw_HS1987_30;
 
 
-% auxData.Ww0.tWw_VE2023_LL = Ww0.tWw_VE2023_LL;
-% auxData.Ww0.tWw_VE2023_ML = Ww0.tWw_VE2023_ML;
-% auxData.Ww0.tWw_VE2023_HL = Ww0.tWw_VE2023_HL;
-% 
-% 
-
 auxData.surface.I_J_O2_VE2023_HL = surface.I_J_O2_VE2023_HL; 
-% auxData.surface.I_J_O2_VE2023_LL = surface.I_J_O2_VE2023_LL ; 
 
 
 
@@ -634,10 +479,6 @@ auxData.time.tWw_HS1987_18 = time.tWw_HS1987_18;
 auxData.time.tWw_HS1987_24 = time.tWw_HS1987_24;
 auxData.time.tWw_HS1987_30 = time.tWw_HS1987_30;
 
-% auxData.time.tWw_VE2023_LL = time.tWw_VE2023_LL;
-% auxData.time.tWw_VE2023_ML = time.tWw_VE2023_ML;
-% auxData.time.tWw_VE2023_HL = time.tWw_VE2023_HL;
-
 
 txtData.units = units; 
 txtData.label = label;
@@ -648,15 +489,6 @@ txtData.bibkey = bibkey;
 set1 = {'tWw_MG2023a_28','tWw_MG2023a_31'}; subtitle1 = {'Data of wet weight MG2023a'};
 set2 = {'tWw_MG2023b_22','tWw_MG2023b_25', 'tWw_MG2023b_28', 'tWw_MG2023b_31'}; subtitle2 = {'Data of wet weight MG2023b'};
 set3 = {'tWw_HS1987_12','tWw_HS1987_18','tWw_HS1987_24','tWw_HS1987_30'}; subtitle3 = {'Data of HS1987'};  
-
-% set4 = {'I_J_O2_VE2023_HL','I_J_O2_VE2023_LL'}; subtitle4 = {'Data of VE2024'};  
-% set4 = {'tWw_VE2023_LL','tWw_VE2023_ML', 'tWw_VE2023_HL'}; subtitle4 = {'Data of VE2024_Ww'};
-% set5 = {'C_gdW_VE2023_LL','C_gdW_VE2023_ML', 'C_gdW_VE2023_HL'}; subtitle5 = {'Data of VE2024_CgdW'};
-% set6 = {'N_gdW_VE2023_LL','N_gdW_VE2023_ML', 'N_gdW_VE2023_HL'}; subtitle6 = {'Data of VE2024_NgdW'};
-
-
-% metaData.grp.sets = {set1,set2,set3, set4};
-% metaData.grp.subtitle = {subtitle1, subtitle2, subtitle3, subtitle4};
 
 metaData.grp.sets = {set1,set2,set3};
 metaData.grp.subtitle = {subtitle1, subtitle2, subtitle3};

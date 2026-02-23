@@ -71,6 +71,7 @@ numCols = 4;
 numRows = 2;
 
 for x = 1:numParams
+    if x<9
     subplot(numCols,numRows,x);
     hold on;
     nameParam = freeParams{x};
@@ -91,17 +92,17 @@ switch varFactorIndex
         colorPointBlue =  [36, 56, 134]; 
         colorPointRed =  [111, 6, 1]; 
 end
-        if numel(SSE_structure) == 4
+        if numel(SSE_structure) == 3
             % Plot neutral variations (red)
             % scatter(xVal, SSE_structure(2).(nameParam), 75,  colorPointGreen./255, 'filled');
         
             % Plot positive variations
-            colorPointBlue =  [    52   157    115]; %green
-            scatter(xVal, SSE_structure(3).(nameParam), 75,  colorPointBlue./255, 'filled');
+            colorPointGreen =  [    52   157    115]; %green
+            scatter(xVal, SSE_structure(2).(nameParam), 75,  colorPointGreen./255, 'filled');
         
             % Plot negative variations
-            colorPointRed =  [  247  96   54]; %orange
-            scatter(xVal, SSE_structure(4).(nameParam), 75,  colorPointRed./255, 'filled');
+            colorPointOrange =  [  247  96   54]; %orange
+            scatter(xVal, SSE_structure(3).(nameParam), 75,  colorPointOrange./255, 'filled');
             % set(gca, 'XTickLabel', label_str);
         else
     
@@ -128,6 +129,6 @@ end
         latexnameParam = nameParam_format;
     end
     title(latexnameParam) % 
-   
+    end
 
 end

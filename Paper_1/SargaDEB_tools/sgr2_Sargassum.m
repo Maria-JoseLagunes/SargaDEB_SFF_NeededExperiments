@@ -99,6 +99,9 @@ function [r,jEC, jEM, jVM, jER, info] = ...
     fprintf(['no convergence of sgr2 in ', num2str(n), ' steps\n']);
   end
 
+% Comment => jVG = (r + sum(jVM))
+% pC = (k_E - r) .* m_E
+
 jER = (k_E - r) .* m_E - jEM - y_EV * (r + sum(jVM));
 
 

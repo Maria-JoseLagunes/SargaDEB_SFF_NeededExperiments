@@ -1,6 +1,6 @@
 % Create subplot with figures
 figure
-t = tiledlayout(2,3,'Padding','none','TileSpacing','none');
+t = tiledlayout(3,2,'Padding','none','TileSpacing','none');
 labels = {'A)', 'B)', '-',  '-','D)','-' , 'E)', 'C)' 'F)'};
 
 for i = [1,2,8,5,7,9]

@@ -166,7 +166,7 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
               figure; counter_fig = counter_fig + 1; legend = cell(0,2);
               nFig = [txt0(counter_fig < 10), num2str(counter_fig)]; 
               hold on;
-              set(gca,'Fontsize',18); 
+              set(gca,'Fontsize',25); 
               set(gcf,'PaperPositionMode','manual');
               set(gcf,'PaperUnits','points'); 
               set(gcf,'PaperPosition',[0 0 350 250]); % left bottom width height
@@ -188,16 +188,16 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                   if isfield(auxData.(pets{i}), 'treat') && isfield(auxData.(pets{i}).treat, nms{jj}) && auxData.(pets{i}).treat.(nms{jj}){1} == 0
                     plot(xPred, yPred, 'o', 'Color',plotColours{2}, 'Markersize',3)
                   else
-                    plot(xPred, yPred,'Color',plotColours{2}, 'linewidth',2)
+                    plot(xPred, yPred,'Color',plotColours{2}, 'linewidth',3)
                   end
-                  plot(xData, yData, '.', 'Color',plotColours{1}, 'Markersize',15)
+                  plot(xData, yData, '.', 'Color',plotColours{1}, 'Markersize',20)
                 else % more than 1 data set in group set ii
                   if isfield(auxData.(pets{i}), 'treat') && isfield(auxData.(pets{i}).treat, nms{jj}) && auxData.(pets{i}).treat.(nms{jj}){1} == 0
                     plot(xPred, yPred, 'o', 'Color',plotColours{mod(jj, maxGroupColourSize)}, 'Markersize',3)
                   else
-                    plot(xPred, yPred, 'Color',plotColours{mod(jj, maxGroupColourSize)}, 'linewidth',2)
+                    plot(xPred, yPred, 'Color',plotColours{mod(jj, maxGroupColourSize)}, 'linewidth',3)
                   end
-                  plot(xData, yData, '.', 'Color',plotColours{mod(jj, maxGroupColourSize)}, 'Markersize',15)
+                  plot(xData, yData, '.', 'Color',plotColours{mod(jj, maxGroupColourSize)}, 'Markersize',20)
                   if length(txtData.(pets{i}).label.(nms{jj})) == 3
                     legend = [legend; {{'.', 15, 2, plotColours{mod(jj, maxGroupColourSize)}, plotColours{mod(jj, maxGroupColourSize)}}, txtData.(pets{i}).label.(nms{jj}){3}}];
                   else
@@ -210,7 +210,7 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
               xlabel([txtData.(pets{i}).label.(nms{1}){1}, ' (', txtData.(pets{i}).units.(nms{1}){1}, ')']);
               ylabel([txtData.(pets{i}).label.(nms{1}){2}, ' (', txtData.(pets{i}).units.(nms{1}){2}, ')']);
               try
-                title(['\it',metaData.(pets{i}).grp.title{ii}], 'FontSize',18, 'FontWeight','normal'); 
+                title(['\it',metaData.(pets{i}).grp.title{ii}], 'Fontsize',25, 'FontWeight','normal'); 
               catch
                 title(''); 
               end
@@ -218,12 +218,20 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                 plotNm = ['results_', pets{i}, '_', nFig];
                 plotNm_pdf = ['results_', pets{i}, '_', nFig];
                 print(plotNm, '-dpng', '-r600')
-                set(gcf,'PaperOrientation','landscape');
-                % plotting in A4 format and positioning the plot in the PDF
-                set(gcf,'PaperUnits','centimeters'); 
-                set(gcf,'PaperType','A4');
-                set(gcf,'PaperPosition',[1. 1. 22. 14.]);
-                print(plotNm_pdf,'-vector','-bestfit','-dpdf')
+                set(findall(gcf,'Type','line'),'LineWidth',3,'MarkerSize',25)
+                set(gca,'FontSize',25,'LineWidth',3)
+
+                ax = gca;
+                ax.XRuler.FontSize = 35;
+                ax.YRuler.FontSize = 35;
+                ax.TickLabelInterpreter = 'none';
+
+                set(gcf,'Units','centimeters')
+                set(gcf,'Position',[2 2 24 16])
+                set(gcf,'PaperUnits','centimeters')
+                set(gcf,'PaperPositionMode','auto')
+
+                print(gcf,plotNm_pdf,'-dpdf','-vector')
 
               end
               if n_nms > 1
@@ -241,7 +249,7 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
             k = size(Var, 2);
             figure; counter_fig = counter_fig + 1; hold on
             nFig = [txt0(counter_fig < 10), num2str(counter_fig)]; 
-            set(gca,'Fontsize',18); 
+            set(gca,'Fontsize',25); 
             set(gcf,'PaperPositionMode','manual');
             set(gcf,'PaperUnits','points'); 
             set(gcf,'PaperPosition',[0 0 350 250]);%left bottom width height
@@ -253,15 +261,15 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
               xPred = aux(:,1);
               yPred = getfield(prdData_x.(pets{i}), fieldsInCells{1}{:});
               if isfield(auxData.(pets{i}), 'treat') && isfield(auxData.(pets{i}).treat, nm{j}) && auxData.(pets{i}).treat.(nm{j}){1} == 0
-                plot(xPred,yPred, 'ob', 'Markersize',3)
+                plot(xPred,yPred, 'ob', 'Markersize',20)
               else 
                 try
-                  plot(xPred,yPred, 'Color', [0.827450980392157,0.121568627450980,0.0666666666666667], 'linewidth',2)
+                  plot(xPred,yPred, 'Color', [0.827450980392157,0.121568627450980,0.0666666666666667], 'linewidth',3)
                 catch
                   keyboard;
                 end
               end
-              plot(xData,yData, '.', 'Markersize',15, 'Color', [0.956862745098039,0.478431372549020,0])
+              plot(xData,yData, '.', 'Markersize',20, 'Color', [0.956862745098039,0.478431372549020,0])
               if length(fieldsInCells{1}) == 1
                 aux = txtData.(pets{i});
               else
@@ -271,7 +279,7 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
               ylabel([aux.label.(fieldsInCells{1}{end}){2}, ' (', aux.units.(fieldsInCells{1}{end}){2}, ')']);
               dataSet_nFig = [dataSet_nFig; {nm{j}, nFig}];
               try
-                title(['\it',aux.title.(fieldsInCells{1}{end})], 'FontSize',18, 'FontWeight','normal');
+                title(['\it',aux.title.(fieldsInCells{1}{end})], 'Fontsize',25, 'FontWeight','normal');
               catch
                 title('');
               end
@@ -279,12 +287,28 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                 plotNm = ['results_', pets{i}, '_', nFig, '.png'];
                 plotNm_pdf = ['results_', pets{i}, '_', nFig, '.pdf'];
                 print(plotNm, '-dpng', '-r600')
-                set(gcf,'PaperOrientation','landscape');
+
+                % set(gcf,'PaperOrientation','landscape');
                 % plotting in A4 format and positioning the plot in the PDF
-                set(gcf,'PaperUnits','centimeters'); 
-                set(gcf,'PaperType','A4');
-                set(gcf,'PaperPosition',[1. 1. 22. 14.]);
-                print(plotNm_pdf,'-vector','-bestfit','-dpdf')
+                % set(gcf,'PaperUnits','centimeters'); 
+                % set(gcf,'PaperType','A4');
+                % set(gcf,'PaperPosition',[1. 1. 22. 14.]);
+                % print(plotNm_pdf,'-vector','-dpdf')
+
+                set(findall(gcf,'Type','line'),'LineWidth',3,'MarkerSize',25)
+                set(gca,'FontSize',25,'LineWidth',3)
+
+                ax = gca;
+                ax.XRuler.FontSize = 35;
+                ax.YRuler.FontSize = 35;
+                ax.TickLabelInterpreter = 'none';
+
+                set(gcf,'Units','centimeters')
+                set(gcf,'Position',[2 2 24 16])
+                set(gcf,'PaperUnits','centimeters')
+                set(gcf,'PaperPositionMode','auto')
+
+                print(gcf,plotNm_pdf,'-dpdf','-vector')
               end
             
             elseif isfield(auxData.(pets{i}), 'treat') && isfield(auxData.(pets{i}).treat, nm{j}) && ...
@@ -302,23 +326,23 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                   xPred = st.(nm{j})(:,1); 
                   yPred = predict_pets(par, data, auxData); yPred = yPred.(pets{i}).(nm{j});         
                   yyaxis left
-                  plot(xPred, yPred(:,1), 'o', 'Color','r', 'Markersize',3)
-                  plot(xData, y1Data, '.', 'Color','r', 'Markersize',15)
+                  plot(xPred, yPred(:,1), 'o', 'Color','r', 'Markersize',20)
+                  plot(xData, y1Data, '.', 'Color','r', 'Markersize',20)
                   ylabel([txtData.(pets{i}).label.(nm{j}){2}, ', ', txtData.(pets{i}).units.(nm{j}){2}]);
                   yyaxis right
-                  plot(xPred, yPred(:,2), 'o', 'Color','b', 'Markersize',3)
-                  plot(xData, y2Data, '.', 'Color','b', 'Markersize',15)
+                  plot(xPred, yPred(:,2), 'o', 'Color','b', 'Markersize',20)
+                  plot(xData, y2Data, '.', 'Color','b', 'Markersize',20)
                   ylabel([txtData.(pets{i}).label.(nm{j}){3}, ', ', txtData.(pets{i}).units.(nm{j}){3}]);
                 else % treat{1} == 1, do not interpolate 2nd independent var and plot curves
                   xPred = data2plot.(pets{i}).(nm{j})(:,1); 
                   yPred = prdData_x.(pets{i}).(nm{j});         
                   yyaxis left
-                  plot(xPred, yPred(:,1), '-', 'Color','r', 'linewidth',2)
-                  plot(xData, y1Data, '.', 'Color','r', 'Markersize',15)
+                  plot(xPred, yPred(:,1), '-', 'Color','r', 'linewidth',3)
+                  plot(xData, y1Data, '.', 'Color','r', 'Markersize',20)
                   ylabel([txtData.(pets{i}).label.(nm{j}){2}, ', ', txtData.(pets{i}).units.(nm{j}){2}]);
                   yyaxis right
-                  plot(xPred, yPred(:,2), '-', 'Color','b', 'linewidth',2)
-                  plot(xData, y2Data, '.', 'Color','b', 'Markersize',15)
+                  plot(xPred, yPred(:,2), '-', 'Color','b', 'linewidth',3)
+                  plot(xData, y2Data, '.', 'Color','b', 'Markersize',20)
                   ylabel([txtData.(pets{i}).label.(nm{j}){3}, ', ', txtData.(pets{i}).units.(nm{j}){3}]);
                 end
                 xlabel([txtData.(pets{i}).label.(nm{j}){1}, ' (', txtData.(pets{i}).units.(nm{j}){1}, ')']);
@@ -345,11 +369,11 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                     yData = st.(nm{j})(:,1+ii);
                     xPred = st.(nm{j})(:,1); 
                     if n_sets2plot == 1
-                      plot(xPred, yPred, 'o', 'Color', plotColours{1}, 'Markersize', 3)
-                      plot(xData, yData, '.', 'Color', plotColours{1}, 'Markersize',15)
+                      plot(xPred, yPred, 'o', 'Color', plotColours{1}, 'Markersize', 30)
+                      plot(xData, yData, '.', 'Color', plotColours{1}, 'Markersize',30)
                     else
-                      plot(xPred, yPred(:,ii), 'o', 'Color',plotColours{mod(ii, maxGroupColourSize)}, 'Markersize',3)
-                      plot(xData, yData, '.', 'Color',plotColours{mod(ii, maxGroupColourSize)}, 'Markersize',15)
+                      plot(xPred, yPred(:,ii), 'o', 'Color',plotColours{mod(ii, maxGroupColourSize)}, 'Markersize',30)
+                      plot(xData, yData, '.', 'Color',plotColours{mod(ii, maxGroupColourSize)}, 'Markersize',30)
                       if isnumeric(treat{2}); txt_ii = [num2str(treat{2}(ii)), ' ', txtData.(pets{i}).units.treat.(nm{j})]; else;  txt_ii = treat{2}(ii); end
                       legend = [legend; {{'.', 15, 2, plotColours{mod(ii, maxGroupColourSize)}, plotColours{mod(ii, maxGroupColourSize)}}, txt_ii}];
                     end
@@ -358,7 +382,7 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                   ylabel([txtData.(pets{i}).label.(nm{j}){2}, ' (', txtData.(pets{i}).units.(nm{j}){2}, ')']);
                   dataSet_nFig = [dataSet_nFig; {nm{j}, {nFig, [nFig,'_legend']}}];
                   try
-                    title(['\it',txtData.(pets{i}).title.(nm{j})], 'FontSize',18, 'FontWeight','normal');
+                    title(['\it',txtData.(pets{i}).title.(nm{j})], 'Fontsize',25, 'FontWeight','normal');
                   catch
                     title('')
                   end
@@ -382,11 +406,11 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                     xPred = data2plot.(pets{i}).(nm{j})(:,1); 
                     yPred = prdData_x.(pets{i}).(nm{j})(:,ii);
                     if n_sets2plot == 1
-                      plot(xPred, yPred,'Color', plotColours{2}, 'linewidth', 2)
-                      plot(xData, yData, '.', 'Color', plotColours{1}, 'Markersize',15)
+                      plot(xPred, yPred,'Color', plotColours{2}, 'linewidth', 3)
+                      plot(xData, yData, '.', 'Color', plotColours{1}, 'Markersize',20)
                     else
-                      plot(xPred, yPred, 'Color', plotColours{mod(ii, maxGroupColourSize)}, 'linewidth', 2)
-                      plot(xData, yData, '.', 'Color', plotColours{mod(ii, maxGroupColourSize)}, 'Markersize', 15)
+                      plot(xPred, yPred, 'Color', plotColours{mod(ii, maxGroupColourSize)}, 'linewidth', 3)
+                      plot(xData, yData, '.', 'Color', plotColours{mod(ii, maxGroupColourSize)}, 'Markersize', 20)
                       if isnumeric(treat{2}); txt_ii = [num2str(treat{2}(ii)), ' ', txtData.(pets{i}).units.treat.(nm{j})]; else;  txt_ii = treat{2}(ii); end
                       legend = [legend; {{'.', 15, 2, plotColours{mod(ii, maxGroupColourSize)}, plotColours{mod(ii, maxGroupColourSize)}}, txt_ii}];
                     end
@@ -395,7 +419,7 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                   ylabel([txtData.(pets{i}).label.(nm{j}){2}, ' (', txtData.(pets{i}).units.(nm{j}){2}, ')']);
                   dataSet_nFig = [dataSet_nFig; {nm{j}, {nFig, [nFig,'_legend']}}];
                   try
-                    title(['\it',txtData.(pets{i}).title.(nm{j})], 'FontSize',18, 'FontWeight','normal');
+                    title(['\it',txtData.(pets{i}).title.(nm{j})], 'Fontsize',25, 'FontWeight','normal');
                   catch
                     title('');
                   end
@@ -430,7 +454,7 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                   for ii = 1:k-1  % scan y-values
                     for jj = 1:nX % scan x-values
                       plot3([xData(jj);xData(jj)], [yData(ii);yData(ii)], [zPred(jj,ii);zData(jj,ii)], 'Color', plotColours{1+(zData(jj,ii)<zPred(jj,ii))})
-                      plot3(xData(jj), yData(ii), zData(jj,ii), '.', 'Color',plotColours{1}, 'Markersize',15)
+                      plot3(xData(jj), yData(ii), zData(jj,ii), '.', 'Color',plotColours{1}, 'Markersize',20)
                     end
                   end
                   % insert clock
@@ -438,7 +462,7 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                   ylabel([txtData.(pets{i}).label.treat.(nm{j}), ' (', txtData.(pets{i}).units.treat.(nm{j}),')']);
                   zlabel([txtData.(pets{i}).label.(nm{j}){2}, ' (', txtData.(pets{i}).units.(nm{j}){2}],')');
                   try
-                    title(['\it',txtData.(pets{i}).title.(nm{j})], 'FontSize',18, 'FontWeight','normal');
+                    title(['\it',txtData.(pets{i}).title.(nm{j})], 'Fontsize',25, 'FontWeight','normal');
                   catch
                     title('');
                   end
@@ -452,12 +476,20 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                 plotNm = ['results_', pets{i}, '_', nFig, '.png'];
                 plotNm_pdf = ['results_', pets{i}, '_', nFig, '.pdf'];
                 print(plotNm, '-dpng', '-r600');
-                set(gcf,'PaperOrientation','landscape');
-                % plotting in A4 format and positioning the plot in the PDF
-                set(gcf,'PaperUnits','centimeters'); 
-                set(gcf,'PaperType','A4');
-                set(gcf,'PaperPosition',[1. 1. 22. 14.]);
-                print(plotNm_pdf,'-vector','-bestfit','-dpdf')
+                set(findall(gcf,'Type','line'),'LineWidth',3,'MarkerSize',25)
+                set(gca,'FontSize',25,'LineWidth',3)
+
+                ax = gca;
+                ax.XRuler.FontSize = 35;
+                ax.YRuler.FontSize = 35;
+                ax.TickLabelInterpreter = 'none';
+
+                set(gcf,'Units','centimeters')
+                set(gcf,'Position',[2 2 24 16])
+                set(gcf,'PaperUnits','centimeters')
+                set(gcf,'PaperPositionMode','auto')
+
+                print(gcf,plotNm_pdf,'-dpdf','-vector')
 
               end
              
@@ -515,7 +547,7 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                   for ii = 1:n_y  % scan y-values
                     for jj = 1:n_x % scan x-values
                       plot3([xData(jj);xData(jj)], [yData(ii);yData(ii)], [zPred(jj,ii);zData_k(jj,ii)], 'Color', plotColours{1+(zData_k(jj,ii)<zPred(jj,ii))})
-                      plot3(xData(jj), yData(ii), zData_k(jj,ii), '.', 'Color',plotColours{1}, 'Markersize',15)
+                      plot3(xData(jj), yData(ii), zData_k(jj,ii), '.', 'Color',plotColours{1}, 'Markersize',20)
                     end
                   end
                   xlim([x_min, x_max]); ylim([y_min, y_max]); zlim([z_min, z_max]);
@@ -523,7 +555,7 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                   ylabel([txtData.(pets{i}).label.(nm{j}){2}, ' (', txtData.(pets{i}).units.(nm{j}){2},')']);
                   zlabel([txtData.(pets{i}).label.(nm{j}){3}, ' (', txtData.(pets{i}).units.(nm{j}){3},')']);
                   try
-                    title(['\it',txtData.(pets{i}).title.(nm{j})], 'FontSize',18, 'FontWeight','normal');
+                    title(['\it',txtData.(pets{i}).title.(nm{j})], 'Fontsize',25, 'FontWeight','normal');
                   catch
                     title('');
                   end
@@ -536,12 +568,20 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
                     plotNm = ['frame', frame, '.png'];
                     plotNm_pdf = ['frame', frame, '.pdf'];
                     print([nmDir,'/',plotNm], '-dpng', '-r600');
-                    set(gcf,'PaperOrientation','landscape');
-                    % plotting in A4 format and positioning the plot in the PDF
-                    set(gcf,'PaperUnits','centimeters'); 
-                    set(gcf,'PaperType','A4');
-                    set(gcf,'PaperPosition',[1. 1. 22. 14.]);
-                    print([nmDir,'/',plotNm_pdf],'-vector','-bestfit','-dpdf')
+                   set(findall(gcf,'Type','line'),'LineWidth',3,'MarkerSize',25)
+                set(gca,'FontSize',25,'LineWidth',3)
+
+                ax = gca;
+                ax.XRuler.FontSize = 35;
+                ax.YRuler.FontSize = 35;
+                ax.TickLabelInterpreter = 'none';
+
+                set(gcf,'Units','centimeters')
+                set(gcf,'Position',[2 2 24 16])
+                set(gcf,'PaperUnits','centimeters')
+                set(gcf,'PaperPositionMode','auto')
+
+                print(gcf,plotNm_pdf,'-dpdf','-vector')
 
                   end
                   close(hfig)
@@ -629,10 +669,11 @@ function results_pets_newColors(par, metaPar, txtPar, data, auxData, metaData, t
       else
         save('results_group.mat', 'par', 'txtPar', 'metaPar', 'metaData');
       end
-    case -3  % save to .mat, save to png, print to screen
-      prt_results2screen(parPets, metaPar, txtPar, data, metaData, txtData, prdData);
+      case -3  % !!! do not save to .mat, save to png, print to html !!!! changed for identifiability 
+      prt_results_my_pet(parPets, metaPar, txtPar, data, metaData, txtData, prdData);
       if n_pets == 1
-        metaData = metaData.(pets{1}); metaPar = metaPar.(pets{1}); save(['results_', pets{1}, '.mat'], 'par', 'txtPar', 'metaPar', 'metaData');
+        jj= 1;
+        % metaData = metaData.(pets{1}); metaPar = metaPar.(pets{1}); save(['results_', pets{1}, '.mat'], 'par', 'txtPar', 'metaPar', 'metaData');
       else
         save('results_group.mat', 'par', 'txtPar', 'metaPar', 'metaData');
       end

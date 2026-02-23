@@ -1,18 +1,7 @@
 %Work
 addpath(genpath('/home/LAGUNES/Documents/GitHub/SargaDEB_working/DEBtool_M-master'))
-cd /home/LAGUNES/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1
-addpath(genpath("/home/LAGUNES/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1/"))
-
-%Laure
-  % addpath(genpath('/Users/laurepecquerie/Documents/GitHub/SargaDEB_working/DEBtool_M-master'))
-  % cd /Users/laurepecquerie/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1/
-  % addpath(genpath("/Users/laurepecquerie/Documents/GitHub/SargaDEB_working/matlab/multi_DEB/Paper_1"))
- % 
-%Home
-% addpath(genpath('C:\Users\Majo\Documents\PhD\SargaDEB_home\DEBtool_M-master'))
-% cd C:\Users\Majo\Documents\PhD\SargaDEB_home\matlab\multi_DEB\Cleaningcodes
-% addpath("C:\Users\Majo\Documents\PhD\SargaDEB_home\matlab\multi_DEB\Cleaningcodes")
-
+cd /home/LAGUNES/Documents/GitHub/SargaDEB_SFF_NeededExperiments/Paper_1/
+addpath(genpath(" /home/LAGUNES/Documents/GitHub/SargaDEB_SFF_NeededExperiments/Paper_1/"))
 
 cd("Identifiability/ExperimentalCreation")
 %% Selection of datasets not to estimate
@@ -41,7 +30,7 @@ list_datasets = ["HT2023", "HS1987", "MG2023a","MG2023b","VE2023", "TC_Ww",...
 
 
 
-pets={'Sargassum_fluitans'};
+pets = {'Sargassum_fluitans'};
 %% RUN ONLY IF NEW ANALYSIS BEING MADE
 varFactor_list = [0.05 0.1 0.2] ; % Variation factor, 10%
 varFactor_list = 0.1; 
@@ -49,17 +38,27 @@ varFactor_list = 0.1;
 for j = 1:length(varFactor_list)
     varFactor = varFactor_list(j);
 
-    all_which_data = {
-    [3 4]
+    % all_which_data = {
+    % [3 4]
+    % [1 3 4]
+    % [1 3 4 5]
+    % [3 4 5]
+    % [1 3 4 5 7]
+    % [1 3 4 5 9]
+    % [3 4 5 7 9]
+    % [1 3 4 7 9]
+    % [1 3 4 5 7 9]
+    % };
+
+    all_which_data =  {
     [1 3 4]
     [1 3 4 5]
-    [3 4 5]
+
     [1 3 4 5 7]
     [1 3 4 5 9]
-    [1 3 4 5 7 9]
-    [3 4 5 7 9]
     [1 3 4 7 9]
-    };
+
+    [1 3 4 5 7 9]};
 
     % all_which_data = {
     % [3 4]
@@ -86,14 +85,19 @@ clf
 
 
 for i = 1:length(all_which_data)
-    which_data = all_which_data{i};
-    config_label = strjoin(string(which_data), '_');
-    config_label = string(length(positiveParameters.freeParams)) + '_' + config_label;
-    filename = strjoin(['SSE_Analysis/SSE_results', config_label , '.mat']);
-    if isfile(filename)
-        load(filename); % Should load SSE_results
-        plot_SSE_variation(SSE_results.SSE_structure, which_data, list_datasets, i);
-    else
+    for j=1:length(varFactor_list)
+        which_data = all_which_data{i};
+        config_label = strjoin(string(which_data), '_');
+        config_label = string(length(positiveParameters.freeParams)) + '_' + config_label;
+        filename = strjoin(['SSE_Analysis/SSE_results', config_label , '.mat']);
+        if isfile(filename)
+            load(filename); % Should load SSE_results
+            % plot_SSE_variation(SSE_results.SSE_structure, which_data, list_datasets, i);
+            plot_SSE_variation(SSE_results.SSE_structure, which_data, list_datasets,...
+                i, varFactor_list, j)
+        else
+        end
     end
+
 end
 

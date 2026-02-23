@@ -16,19 +16,6 @@ if pars.T_L > pars.T_ref || pars.T_H < pars.T_ref
   info = 0; prdData = []; return;
 end
 
-% if pars.T_AH < 1e3 || pars.T_AL < 1e3
-%   info = 0; prdData = []; return;
-% end
-
-
-% r = (0.1 / 24) * 0.95;  %in hours, rmax from studies
-% 
-% pars.m_EC_0 = (pars.j_ECAm - pars.kap_EC * pars.j_ECM - pars.kap_EC * pars.y_ECV * r)/ ...
-%                 ((1 - pars.kap_EC) * pars.k_EC + pars.kap_EC  * r);
-% 
-% pars.m_EN_0 = (pars.j_ENAm - pars.kap_EN * pars.j_ENM - pars.kap_EN * pars.y_ENV * r)/ ...
-%                 ((1 - pars.kap_EN) * pars.k_EN + pars.kap_EN * r);
-
 
 % 
 filterChecks =   pars.y_ENV < pars.n_NV   || ...     % mass conservation  n_HV > 263/106 || n_OV > 10/106 || n_NV > 16/106 || n_PV > 1/106 || ...     % assuming there is some reserve in Redfield ratio
@@ -59,13 +46,9 @@ TC_t_Ww_b_28 = tempcorr(temp.tWw_MG2023b_28, pars.T_ref, pars_T);  %-
 TC_t_Ww_b_31 = tempcorr(temp.tWw_MG2023b_31, pars.T_ref, pars_T);  %-
 
 
-
+% Correction of parameter values for Vazquez-Elizondo data
 TC_HL = tempcorr(temp.I_J_O2_VE2023_HL, pars.T_ref,pars_T); % - 
-
-%Correction of parameter values for Vazquez-Elizondo data
 k_I_CT_HL = pars.k_I * TC_HL; % mol γ mol PSU–1 h–1
-% k_I_CT_LL = pars.k_I * TC_LL; % mol γ mol PSU–1 h–
-
 
 
 %Transform parameters with z factor algal
@@ -499,9 +482,6 @@ if contains(pwd,'Identifiability')
         M_V = mECENV(:,3);
     
 
-        % Wd = (pars.w_V + (m_EN * pars.w_EN) + (m_EC * pars.w_EC)) .* M_V;%g dW, dry weight
-        % Ww = Wd ./ dwratio_SF;
-
         Wd_free = (pars.w_V + (m_EN * pars.w_EN) + (m_EC * pars.w_EC)) .* M_V;%g dW, dry weight
         Wd = Wd_free / (1 - pars.x_moist - pars.x_ash); 
         Ww = Wd ./ dwratio_SF;
@@ -554,8 +534,6 @@ if contains(pwd,'Identifiability')
         m_EN = mECENV_twodays(:,2);
         M_V = mECENV_twodays(:,3);
     
-        % Wd = (pars.w_V + (m_EN * pars.w_EN) + (m_EC * pars.w_EC)) .* M_V;
-        % Ww = Wd ./ dwratio_SF;
 
         Wd_free = (pars.w_V + (m_EN * pars.w_EN) + (m_EC * pars.w_EC)) .* M_V;%g dW, dry weight
         Wd = Wd_free / (1 - pars.x_moist - pars.x_ash); 
@@ -578,9 +556,6 @@ if contains(pwd,'Identifiability')
         dataset = char(datasets(i));
         TC = tempcorr(temp.(dataset), pars.T_ref, pars_T);  %-
   
-        % Wd_0 = Ww0.(sprintf('tWw_%s', dataset)) * dwratio_SF;  
-        % M_V_0 = Wd_0 / (pars.w_V + (pars.m_EN_0 * pars.w_EN) + (pars.m_EC_0 * pars.w_EC)); 
-
         Wd_0_ash= Ww0.(sprintf('tWw_%s', dataset)) * dwratio_SF;    %g dW, dry weight organic + inorganic
         Wd_0 = Wd_0_ash *  (1 - pars.x_moist - pars.x_ash) ; %g dW, dry weight organic 
         M_V_0 = Wd_0  / (pars. w_V +   (pars.m_EN_0 * pars.w_EN) +   (pars.m_EC_0* pars.w_EC)); % mol V, structural initial mass 
@@ -656,10 +631,11 @@ if contains(pwd,'Identifiability')
         Wd0_N = Wd0_N_ash *  (1 - pars.x_moist - pars.x_ash) ; %g dW, dry weight organic 
 
         M_V_0_N = Wd0_N/ (pars.w_V +   (pars. m_EN_0 * pars.w_EN) +   (pars.m_EC_0 * pars.w_EC)); % mol V, structural intial mass
-        
+        N_concentration_mol = eval([dataset '(:,1)']) * 1e-6; 
+
         j_ENAm_CT = pars.j_ENAm * TC_N; 
-        j_EN_A =  j_ENAm_CT * (eval([dataset '(:,1)']) ./ (eval([dataset '(:,1)']) + pars.K_N)); % mol N mol V-1 h-1
-        j_EN_A_dryweight =  j_EN_A * M_V_0_N / Wd0_N;  %mol N g dW-1 h-1
+        j_EN_A =  j_ENAm_CT * (N_concentration_mol ./ (N_concentration_mol + pars.K_N)); % mol N mol V-1 h-1
+        j_EN_A_dryweight =  j_EN_A * M_V_0_N / Wd0_N / 1e-6;  %micro mol N g dW-1 h-1
         prdData.(dataset) = j_EN_A_dryweight; 
     
     end 

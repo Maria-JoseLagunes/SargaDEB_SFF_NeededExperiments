@@ -4,7 +4,7 @@
 % First created : 2025/03/31
 % ---------------------------------------------------------------------
 function [simu, obs] = run_Nuptake(N_microConcentration, temp_C)
-global pets
+global pets pars_init_method
 
 % temp_C = [22 26 28];
 temp_K = C2K(temp_C); 
@@ -18,28 +18,42 @@ pars_initnm = ['pars_init_', pets{1}];
 resultsnm   = ['results_', pets{1}, '.mat'];
 auxDatanm = ['auxData.', pets{1}];
 
+if pars_init_method == 1
+   [par, ~, ~] = feval(pars_initnm, []);
+elseif pars_init_method == 2
+   load(resultsnm, 'par');
+end
 
-[pars, ~, ~] = feval(pars_initnm, []);
 
-pars_T = [pars.T_A; pars.T_L; pars.T_H; pars.T_AL; pars.T_AH]; % K
 
-ct = tempcorr(temp_K, pars.T_ref, pars_T); %-
+pars_T = [par.T_A; par.T_L; par.T_H; par.T_AL; par.T_AH]; % K
+
+ct = tempcorr(temp_K, par.T_ref, pars_T); %-
 
 
 Ww0 = 2.5 ; %g Ww, initial wet biomass 
-% Wd0 = Ww0 * pars.dwratio;  %g dW, initial dry weight biomass
+% Wd0 = Ww0 * par.dwratio;  %g dW, initial dry weight biomass
 % M_V_0 = Wd0 / (pars.w_V +   (pars. m_EN_0 * pars.w_EN) +   (pars.m_EC_0 * pars.w_EC)); % mol V, structural intial mass
 
-Wd0_ash = Ww0 * pars.dwratio;  %g dW, initial dry weight biomass
-Wd0 = Wd0_ash * (1 - pars.x_moist - pars.x_ash); 
-M_V_0 = Wd0 / (pars.w_V +   (pars.m_EN_0 * pars.w_EN) +   (pars.m_EC_0 * pars.w_EC)); % mol V, structural intial mass
+Wd0_ash = Ww0 * par.phi_dw;  %g dW, initial dry weight biomass
+Wd0 = Wd0_ash * (1 - par.x_moist - par.x_ash); 
+M_V_0 = Wd0 / (par.w_V +   (par.m_EN_0 * par.w_EN) +   (par.m_EC_0 * par.w_EC)); % mol V, structural intial mass
       
 
 
-j_ENAm_unitTransformation = pars.j_ENAm * M_V_0 / Wd0 ; %mol N g dW-1 h-1,transformed from mol N mol V-1 h-1
+
+
+j_ENAm_unitTransformation = par.j_ENAm * (M_V_0 / Wd0) ; %mol N g dW-1 h-1,transformed from mol N mol V-1 h-1
 j_ENAm_CT = j_ENAm_unitTransformation * ct;  % mol N g dW-1 h-1
 
+
+
 j_EN_A = []; 
+
+j_ENAm_CT_bis = par.j_ENAm * ct; 
+j_EN_A_bis = []; 
+
+
 
 % Nitrogen into reserve
 for i = 1:length(ct)
@@ -49,12 +63,18 @@ for i = 1:length(ct)
     simu(i).Wd0 = Wd0; 
     simu(i).M_V_0 = M_V_0; 
     for l = 1:length(N_molConcentration)
-        j_EN_A(:,l) = j_ENAm_CT(i) * (N_molConcentration(l) / (N_molConcentration(l) + pars.K_N)); % mol N g dW-1 h-1
+        j_EN_A(:,l) = j_ENAm_CT(i) * (N_molConcentration(l) / (N_molConcentration(l) + par.K_N)); % mol N g dW-1 h-1
     end
     obs(i).nitrateUptake = j_EN_A;
     obs(i).j_EN_A_inmicroMol = j_EN_A / 1e-6; % micro mol N g dW-1 h-1
-    plot(simu(i).N_microConcentration,obs(i).j_EN_A_inmicroMol, ...
-        'LineWidth', 2); hold on; 
+    scatter(simu(i).N_microConcentration,obs(i).j_EN_A_inmicroMol); hold on; 
+    for l = 1:length(N_molConcentration)
+        j_EN_A_bis(:,l) = j_ENAm_CT_bis(i) * (N_molConcentration(l) / (N_molConcentration(l) + par.K_N)); % mol N g dW-1 h-1
+        j_EN_A_dryweight =  j_EN_A_bis * (M_V_0 / Wd0);  %mol N g dW-1 h-1
+    end
+      
+
+     
 
 end
 

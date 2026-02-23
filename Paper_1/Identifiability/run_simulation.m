@@ -18,7 +18,7 @@ function [simu, obs] = run_simulation()
              
         % Plots
         
-       get_plots_2(t,mECENV,J_struct,obs(i), simu(i));
+       % get_plots_2(t,mECENV,J_struct,obs(i), simu(i));
     
     
     end 

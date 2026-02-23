@@ -34,7 +34,7 @@ t = t/24 ; %t in days
 T_set = simulationConditions.temp;
 figure(1);
 
-col =  [0.6275    0.5333    0.8196]; 
+col =  [0    0.4471    0.7412]; 
 % time (t), Temperature (T°C)
 subplot(3,5,1);hold on;
 plot(t, repelem(T_set-273.15,numel(t)), 'Color', col, 'LineWidth', 1.2); xlabel("Time (days)"); ylabel("Temperature (°C)" );
@@ -140,7 +140,7 @@ ax.YAxis.FontSize = 8;
 ax.XLim = [t(1,:) t(end)];
 
 subplot(3,5,13); hold on;
-plot(t, J_struct.j_VG,'Color', col,'LineWidth', 1.5); xlabel("Time (days)"); ylabel("Specific growth flux  (h^{-1})");
+plot(t, J_struct.r,'Color', col,'LineWidth', 1.5); xlabel("Time (days)"); ylabel("Specific growth flux  (h^{-1})");
 ax = gca;
 % ax.YLim = [min(J_struct.j_VG) max(J_struct.j_VG) ];
 ax.XAxis.FontSize = 12;
@@ -396,7 +396,7 @@ ax.XLim = [t(1,:) t(end)];
 
 subplot(2,2,2);hold on;
 
-plot(t, J_struct.j_VG,'Color', col,'LineWidth', 1.5); xlabel("Time (days)"); ylabel("Specific growth flux  (h^{-1})");
+plot(t, J_struct.r,'Color', col,'LineWidth', 1.5); xlabel("Time (days)"); ylabel("Specific growth flux  (h^{-1})");
 ax = gca;
 % ax.YLim = [min(J_struct.j_VG) max(J_struct.j_VG) ];
 ax.XAxis.FontSize = 12;

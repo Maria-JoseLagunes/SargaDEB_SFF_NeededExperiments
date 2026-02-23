@@ -10,7 +10,7 @@ estim_options('max_fun_evals', 5e3);
 
 
 estim_options('pars_init_method',1); 
-estim_options('results_output',1)
+estim_options('results_output',3)
 estim_options('method', 'no'); 
 
 
@@ -21,6 +21,7 @@ tStart = tic;
 estim_pars_algae; 
 tEnd = toc(tStart);
 fprintf('THIS CALIBRATION TOOK: %d minutes and %f seconds\n', floor(tEnd/60), rem(tEnd,60));
+
 
 
 %% Save all the results to working folder
